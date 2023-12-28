@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VoiceWrapperAPI")]
+[assembly: AssemblyTitle("VoiceRecognitionAPI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VoiceWrapperAPI")]
+[assembly: AssemblyProduct("VoiceRecognitionAPI")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("eb2bb7de-3e05-4ee6-b103-7f6f74a70662")]
+[assembly: Guid("e757c01d-aa24-4f78-b22a-7a6594a319e9")]
 
 // Version information for an assembly consists of the following four values:
 //

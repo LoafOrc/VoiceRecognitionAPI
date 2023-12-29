@@ -14,7 +14,7 @@ namespace VoiceRecognitionAPI {
     public class Plugin : BaseUnityPlugin {
         public const string modGUID = "me.loaforc.voicerecognitionapi";
         public const string modName = "VoiceRecognitionAPI";
-        public const string modVersion = "1.0.0";
+        public const string modVersion = "1.0.2";
 
         private static readonly Harmony harmony = new Harmony(modGUID);
         internal static Plugin instance;
@@ -52,6 +52,8 @@ namespace VoiceRecognitionAPI {
                 String resourceName = modName + "." + new AssemblyName(args.Name).Name + ".dll";
                 if (LOG_IMPORT.Value)
                     logger.LogInfo("Located at: " + resourceName);
+
+                if (Assembly.GetExecutingAssembly().GetManifestResourceInfo(resourceName) == null) return null;
 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName)) {
                     if (LOG_IMPORT.Value)

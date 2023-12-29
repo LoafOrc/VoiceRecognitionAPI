@@ -31,21 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-	  <Reference Include="UnityEngine">
+    <Reference Include="UnityEngine">
       <HintPath>$(LethalCompanyPath)\Lethal Company_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(LethalCompanyPath)\Lethal Company_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-	  <Reference Include="0Harmony">
-		  <HintPath>$(LethalCompanyPath)\BepInEx\core\0Harmony.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Assembly-CSharp">
-		  <HintPath>$(LethalCompanyPath)\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
-	  </Reference>
-	  <Reference Include="BepInEx">
-		  <HintPath>$(LethalCompanyPath)\BepInEx\core\BepInEx.dll</HintPath>
-	  </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(LethalCompanyPath)\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(LethalCompanyPath)\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(LethalCompanyPath)\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Speech" />
@@ -68,4 +68,7 @@
     <EmbeddedResource Include="System.Speech.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>tar.exe -v -c -f $(TargetDir)VoiceRecognitionAPI.zip $(TargetDir)VoiceRecognitionAPI.dll $(ProjectDir)README.md $(ProjectDir)Thunderstore\icon.png $(ProjectDir)Thunderstore\manifest.json</PostBuildEvent>
+  </PropertyGroup>
 </Project>

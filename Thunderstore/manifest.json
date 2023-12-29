@@ -1,6 +1,6 @@
 ﻿{
     "name": "VoiceRecognitionAPI",
-    "version_number": "1.0.1",
+    "version_number": "1.0.2",
     "website_url": "https://github.com/LoafOrc/VoiceRecognitionAPI/",
     "description": "Loads Windows Speech recognition into Lethal Company and provides a dev-friendly way of using it.",
     "dependencies": ["BepInEx-BepInExPack-5.4.2100"]

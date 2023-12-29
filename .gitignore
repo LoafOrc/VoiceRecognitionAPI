@@ -2,3 +2,5 @@ bin/
 .vs/
 obj/
 VoiceRecognitionAPI.csproj.user
+Thunderstore/VoiceRecognitionAPI.dll
+Thunderstore/VoiceRecognitionAPI.zip

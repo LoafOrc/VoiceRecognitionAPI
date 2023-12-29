@@ -47,7 +47,11 @@ namespace VoiceRecognitionAPI {
 
             args.Message = e.Result.Text; args.Confidence = e.Result.Confidence;
 
-            VoiceRecognitionFinishedEvent.Invoke(Plugin.instance, args);
+            try {
+                VoiceRecognitionFinishedEvent.Invoke(Plugin.instance, args);
+            } catch(Exception ex) {
+                Plugin.logger.LogError("Something failed to do something " + ex.Message + "\n" + ex.StackTrace);
+            }
         }
 
         public class VoiceRecognitionEventArgs : EventArgs {

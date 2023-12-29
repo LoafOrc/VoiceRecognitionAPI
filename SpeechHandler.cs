@@ -40,6 +40,7 @@ namespace VoiceRecognitionAPI {
                 return;
             }
             if (e.InitialSilenceTimeout || e.BabbleTimeout) {
+                Plugin.logger.LogWarning("babble timeout");
                 return;
             }
             if (e.Result != null && Plugin.LOG_SPEECH.Value) {

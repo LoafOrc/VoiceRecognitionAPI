@@ -43,7 +43,7 @@ namespace VoiceRecognitionAPI {
                 Plugin.logger.LogWarning("babble timeout");
                 return;
             }
-            if (e.Result != null && Plugin.LOG_SPEECH.Value) {
+            if (e.Result != null) {
                 Voice.VoiceRecognition(e);
             } else if (Plugin.LOG_SPEECH.Value) {
                 Plugin.logger.LogInfo("No result.");

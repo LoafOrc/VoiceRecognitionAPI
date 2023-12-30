@@ -26,7 +26,11 @@ namespace VoiceRecognitionAPI {
             }
 
             Plugin.logger.LogInfo("Phrases used for voice recognition: " + Voice.phrases);
-            casted.LoadGrammar(new Grammar(new GrammarBuilder(new Choices(Voice.phrases.ToArray()))));
+
+            GrammarBuilder grammarBuilder = new GrammarBuilder(new Choices(Voice.phrases.ToArray()));
+            grammarBuilder.Culture = casted.RecognizerInfo.Culture;
+
+            casted.LoadGrammar(new Grammar(grammarBuilder));
             casted.RecognizeCompleted += new EventHandler<RecognizeCompletedEventArgs>(RecognizeCompletedHandler);
             casted.RecognizeAsync();
             Plugin.logger.LogInfo("Began listenting");

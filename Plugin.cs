@@ -2,6 +2,8 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using LethalSettings.UI;
+using LethalSettings.UI.Components;
 using System;
 using System.IO;
 using System.Reflection;
@@ -14,7 +16,7 @@ namespace VoiceRecognitionAPI {
     public class Plugin : BaseUnityPlugin {
         public const string modGUID = "me.loaforc.voicerecognitionapi";
         public const string modName = "VoiceRecognitionAPI";
-        public const string modVersion = "1.0.2";
+        public const string modVersion = "1.1.0";
 
         private static readonly Harmony harmony = new Harmony(modGUID);
         internal static Plugin instance;
@@ -24,6 +26,8 @@ namespace VoiceRecognitionAPI {
         internal static ConfigEntry<bool> LOG_IMPORT;
 
         internal static bool RECOGNITION_SETUP = false;
+        internal static LabelComponent successMessage;
+        private bool testingRecogntion = false;
 
         void Awake() {
             if (instance == null) instance = this; // Signleton
@@ -76,6 +80,34 @@ namespace VoiceRecognitionAPI {
                 }
 
             };
+            successMessage = new LabelComponent {
+                Text = "",
+                Alignment = TMPro.TextAlignmentOptions.Left,
+                FontSize = 14,
+            };
+
+            ModMenu.RegisterMod(new ModMenu.ModSettingsConfig {
+                Name = modName,
+                Id = modGUID,
+                Description = "Allows you to test out voice recognition!",
+                MenuComponents = new MenuComponent[] {
+                    new ButtonComponent {
+                        Text = "Test Voice Recognition",
+                        OnClick = (self) => {
+                            successMessage.Text = "Please say \"I love the company!\"";
+                            testingRecogntion = true;
+                        }
+                    },
+                    successMessage
+                }
+            });
+
+            Voice.ListenForPhrase("i love the company", (message) => {
+                if(testingRecogntion) {
+                    testingRecogntion = false;
+                    successMessage.Text = "The company thanks you! (Your voice recognition is working)";
+                }
+            });
 
             logger.LogInfo("Patching game...");
             harmony.PatchAll(typeof(GameNetworkManagerPatch));

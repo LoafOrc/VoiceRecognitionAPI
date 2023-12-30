@@ -13,6 +13,12 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
+	<!-- prevent referenced assemblies from being copied to the output folder -->
+	<Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+		</ItemGroup>
+	</Target>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -75,7 +81,4 @@
     <None Include="thunderstore.toml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>tar.exe -v -c -f $(TargetDir)VoiceRecognitionAPI.zip $(TargetDir)VoiceRecognitionAPI.dll $(ProjectDir)README.md $(ProjectDir)Thunderstore\icon.png $(ProjectDir)Thunderstore\manifest.json</PostBuildEvent>
-  </PropertyGroup>
 </Project>

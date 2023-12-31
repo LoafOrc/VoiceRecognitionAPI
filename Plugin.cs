@@ -13,14 +13,11 @@ using VoiceRecognitionAPI.Patches;
 namespace VoiceRecognitionAPI {
 
     [BepInPlugin(modGUID, modName, modVersion)]
+    [BepInDependency("com.willis.lc.lethalsettings")]
     public class Plugin : BaseUnityPlugin {
         public const string modGUID = "me.loaforc.voicerecognitionapi";
         public const string modName = "VoiceRecognitionAPI";
-<<<<<<< Updated upstream
-        public const string modVersion = "1.1.0";
-=======
         public const string modVersion = "1.2.0";
->>>>>>> Stashed changes
 
         private static readonly Harmony harmony = new Harmony(modGUID);
         internal static Plugin instance;

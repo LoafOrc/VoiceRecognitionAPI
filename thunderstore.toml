@@ -4,11 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "loaforc"
 name = "VoiceRecognitionAPI"
-<<<<<<< Updated upstream
-versionNumber = "1.1.0"
-=======
 versionNumber = "1.2.0"
->>>>>>> Stashed changes
 description = "Loads Windows Speech recognition into Lethal Company and provides a dev-friendly way of using it."
 websiteUrl = "https://github.com/LoafOrc/VoiceRecognitionAPI"
 containsNsfwContent = false

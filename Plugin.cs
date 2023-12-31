@@ -17,7 +17,7 @@ namespace VoiceRecognitionAPI {
     public class Plugin : BaseUnityPlugin {
         public const string modGUID = "me.loaforc.voicerecognitionapi";
         public const string modName = "VoiceRecognitionAPI";
-        public const string modVersion = "1.1.1";
+        public const string modVersion = "1.2.0";
 
         private static readonly Harmony harmony = new Harmony(modGUID);
         internal static Plugin instance;

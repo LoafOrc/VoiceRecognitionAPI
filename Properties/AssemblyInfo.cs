@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("VoiceRecognitionAPI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Load Windows Recognition into Lethal Company with a dev friendly implemenation system.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("loaforc")]
 [assembly: AssemblyProduct("VoiceRecognitionAPI")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]

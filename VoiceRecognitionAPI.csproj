@@ -15,8 +15,11 @@
   </Target>
   <ItemGroup>
     <Compile Remove="build\**" />
+    <Compile Remove="Dependencies\**" />
     <EmbeddedResource Remove="build\**" />
+    <EmbeddedResource Remove="Dependencies\**" />
     <None Remove="build\**" />
+    <None Remove="Dependencies\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".gitattributes" />

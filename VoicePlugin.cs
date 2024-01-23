@@ -2,8 +2,6 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using LethalSettings.UI;
-using LethalSettings.UI.Components;
 using System;
 using System.IO;
 using System.Reflection;
@@ -24,8 +22,6 @@ namespace VoiceRecognitionAPI {
         internal static VoicePlugin instance;
         internal static ManualLogSource logger;
 
-        
-
         void Awake() {
             if (instance == null) instance = this; // Signleton
             else return; // Make sure nothing else gets loaded.
@@ -35,7 +31,7 @@ namespace VoiceRecognitionAPI {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
                 logger.LogDebug("Importing " + args.Name);
 
-                String resourceName = modName + "." + new AssemblyName(args.Name).Name + ".dll";
+                String resourceName = modName + ".Resources." + new AssemblyName(args.Name).Name + ".dll";
                 logger.LogDebug("Located at: " + resourceName);
 
                 if (Assembly.GetExecutingAssembly().GetManifestResourceInfo(resourceName) == null) return null;
@@ -61,6 +57,8 @@ namespace VoiceRecognitionAPI {
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.willis.lc.lethalsettings")) {
                 logger.LogInfo("It is! Adding voice recognition test to the settings menu.");
                 VoiceRecognitionSettings.Init();
+            } else {
+                logger.LogInfo("it isn't :( - you won't be able to test voice recognition easily inside the game");
             }
 
             logger.LogInfo("Applying Patches");

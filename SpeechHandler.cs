@@ -11,17 +11,23 @@ namespace VoiceRecognitionAPI {
         // it correctly, which means without this hack the mod would not start.
         private static object recognition;
 
-        internal static SpeechHandler instance;
+        public static SpeechHandler instance { get; private set; }
 
 
         internal SpeechHandler() {
             if (instance == null) instance = this;
             else return;
 
+            if(Voice.phrases.Count == 0) {
+                VoicePlugin.logger.LogWarning("this is awkward, no mods registered any voice phrases. Cancelling creating the speech recognition engine!");
+                instance = null;
+                return;
+            }
+
             VoicePlugin.logger.LogInfo("Setting up the recognition engine.");
 
             recognition = new SpeechRecognitionEngine();
-            SpeechRecognitionEngine casted = (SpeechRecognitionEngine)recognition;
+                SpeechRecognitionEngine casted = (SpeechRecognitionEngine)recognition;
             try {
                 casted.SetInputToDefaultAudioDevice();
             } catch (Exception e) when(e is PlatformNotSupportedException || e is COMException) {
@@ -54,7 +60,7 @@ namespace VoiceRecognitionAPI {
                 return;
             }
             if (e.InitialSilenceTimeout || e.BabbleTimeout) {
-                VoicePlugin.logger.LogWarning("babble timeout");
+                VoicePlugin.logger.LogDebug("babble timeout");
                 return;
             }
             if (e.Result != null) {

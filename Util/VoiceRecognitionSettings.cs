@@ -6,11 +6,10 @@ using System.Text;
 
 namespace VoiceRecognitionAPI.Util {
     internal class VoiceRecognitionSettings {
-        internal static LabelComponent? successMessage;
         private static bool testingRecogntion = false;
 
         internal static void Init() {
-            successMessage = new LabelComponent {
+            LabelComponent successMessage = new LabelComponent {
                 Text = "",
                 Alignment = TMPro.TextAlignmentOptions.Left,
                 FontSize = 14,
@@ -30,7 +29,7 @@ namespace VoiceRecognitionAPI.Util {
                     },
                     successMessage
                 }
-            });
+            }, true, true);
 
             Voice.ListenForPhrase("i love the company", (message) => {
                 if (testingRecogntion) {

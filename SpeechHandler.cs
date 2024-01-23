@@ -4,7 +4,7 @@ using System.Speech.Recognition;
 using UnityEngine;
 
 namespace VoiceRecognitionAPI {
-    public class SpeechHandler {
+    internal class SpeechHandler {
 
         // Now what I'm about to do might seem crazy. But!, it must be done otherwise an error is thrown!
         // Basically it tries to load SpeechRecognitionEngine before the main mod has the chance to load
@@ -14,7 +14,7 @@ namespace VoiceRecognitionAPI {
         internal static SpeechHandler instance;
 
 
-        public SpeechHandler() {
+        internal SpeechHandler() {
             if (instance == null) instance = this;
             else return;
 
@@ -39,6 +39,7 @@ namespace VoiceRecognitionAPI {
                 Culture = casted.RecognizerInfo.Culture
             };
 
+            VoicePlugin.logger.LogInfo("Almost done setting up..");
             casted.LoadGrammar(new Grammar(grammarBuilder));
             casted.RecognizeCompleted += new EventHandler<RecognizeCompletedEventArgs>(RecognizeCompletedHandler);
             casted.RecognizeAsync();

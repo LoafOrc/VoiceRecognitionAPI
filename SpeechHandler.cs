@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Speech.Recognition;
 using UnityEngine;
 
@@ -21,14 +22,22 @@ namespace VoiceRecognitionAPI {
 
             recognition = new SpeechRecognitionEngine();
             SpeechRecognitionEngine casted = (SpeechRecognitionEngine)recognition;
-            casted.SetInputToDefaultAudioDevice();
+            try {
+                casted.SetInputToDefaultAudioDevice();
+            } catch (Exception e) when(e is PlatformNotSupportedException || e is COMException) {
+                VoicePlugin.logger.LogError("Failed create recognition engine. This is most likely due to your language not supporting Microsoft's speech recognition!\n" + e);
+
+                instance = null;
+                return;
+            }
             
             foreach(string phrase in Voice.phrases) {
                 VoicePlugin.logger.LogDebug("registering phrase: " + phrase);
             }
 
-            GrammarBuilder grammarBuilder = new GrammarBuilder(new Choices(Voice.phrases.ToArray()));
-            grammarBuilder.Culture = casted.RecognizerInfo.Culture;
+            GrammarBuilder grammarBuilder = new GrammarBuilder(new Choices(Voice.phrases.ToArray())) {
+                Culture = casted.RecognizerInfo.Culture
+            };
 
             casted.LoadGrammar(new Grammar(grammarBuilder));
             casted.RecognizeCompleted += new EventHandler<RecognizeCompletedEventArgs>(RecognizeCompletedHandler);

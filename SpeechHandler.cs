@@ -22,10 +22,10 @@ namespace VoiceRecognitionAPI {
             casted.SetInputToDefaultAudioDevice();
             
             foreach(string phrase in Voice.phrases) {
-                Plugin.logger.LogInfo(phrase);
+                VoicePlugin.logger.LogInfo(phrase);
             }
 
-            Plugin.logger.LogInfo("Phrases used for voice recognition: " + Voice.phrases);
+            VoicePlugin.logger.LogInfo("Phrases used for voice recognition: " + Voice.phrases);
 
             GrammarBuilder grammarBuilder = new GrammarBuilder(new Choices(Voice.phrases.ToArray()));
             grammarBuilder.Culture = casted.RecognizerInfo.Culture;
@@ -33,24 +33,24 @@ namespace VoiceRecognitionAPI {
             casted.LoadGrammar(new Grammar(grammarBuilder));
             casted.RecognizeCompleted += new EventHandler<RecognizeCompletedEventArgs>(RecognizeCompletedHandler);
             casted.RecognizeAsync();
-            Plugin.logger.LogInfo("Began listenting");
+            VoicePlugin.logger.LogInfo("Began listenting");
         }
 
         void RecognizeCompletedHandler(object sender, RecognizeCompletedEventArgs e) {
-            Plugin.logger.LogInfo("afh");
+            VoicePlugin.logger.LogInfo("afh");
             ((SpeechRecognitionEngine)recognition).RecognizeAsync();
             if (e.Error != null) {
-                Plugin.logger.LogError("An erroror occured during recognition: " + e.Error);
+                VoicePlugin.logger.LogError("An erroror occured during recognition: " + e.Error);
                 return;
             }
             if (e.InitialSilenceTimeout || e.BabbleTimeout) {
-                Plugin.logger.LogWarning("babble timeout");
+                VoicePlugin.logger.LogWarning("babble timeout");
                 return;
             }
             if (e.Result != null) {
                 Voice.VoiceRecognition(e);
-            } else if (Plugin.LOG_SPEECH.Value) {
-                Plugin.logger.LogInfo("No result.");
+            } else if (VoicePlugin.LOG_SPEECH.Value) {
+                VoicePlugin.logger.LogInfo("No result.");
             }
         }
     }

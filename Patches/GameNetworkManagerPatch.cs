@@ -11,7 +11,7 @@ namespace VoiceRecognitionAPI.Patches {
         [HarmonyPatch("Start")]
         [HarmonyPostfix]
         static void setupRecognitionEngine() {
-            Plugin.instance.SetupEngine();
+            VoicePlugin.instance.SetupEngine();
         }
     }
 }

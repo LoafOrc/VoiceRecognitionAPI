@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Speech.Recognition;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VoiceRecognitionAPI {
     public static class Voice {
         public const float DEFAULT_MIN_CONFIDENCE = .2f;
 
         internal static event EventHandler<VoiceRecognitionEventArgs> VoiceRecognitionFinishedEvent = (__, args) => {
-            if (Plugin.LOG_SPEECH.Value)
-                Plugin.logger.LogInfo("Recognized: \"" + args.Message + "\" with a confidence of " + args.Confidence);
+            if (VoicePlugin.LOG_SPEECH.Value)
+                VoicePlugin.logger.LogInfo("Recognized: \"" + args.Message + "\" with a confidence of " + args.Confidence);
         };
 
         internal static List<string> phrases = new List<string>();
@@ -40,7 +38,7 @@ namespace VoiceRecognitionAPI {
         }
 
         public static EventHandler<VoiceRecognitionEventArgs> ListenForPhrases(string[] phrases, float minConfidence, Action<string> callback) {
-            if(Plugin.RECOGNITION_SETUP) {
+            if(VoicePlugin.RECOGNITION_SETUP) {
                 throw new VoiceRecognitionEngineAlreadyStarted("The voice recognition engine was already started. If you are a developer, Make sure to setup your voice recognition patterns in Awake().");
             }
 
@@ -64,9 +62,9 @@ namespace VoiceRecognitionAPI {
             args.Message = e.Result.Text; args.Confidence = e.Result.Confidence;
 
             try {
-                VoiceRecognitionFinishedEvent.Invoke(Plugin.instance, args);
+                VoiceRecognitionFinishedEvent.Invoke(VoicePlugin.instance, args);
             } catch(Exception ex) {
-                Plugin.logger.LogError("Something failed to do something " + ex.Message + "\n" + ex.StackTrace);
+                VoicePlugin.logger.LogError("Something failed to do something " + ex.Message + "\n" + ex.StackTrace);
             }
         }
 

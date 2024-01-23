@@ -14,13 +14,13 @@ namespace VoiceRecognitionAPI {
 
     [BepInPlugin(modGUID, modName, modVersion)]
     [BepInDependency("com.willis.lc.lethalsettings")]
-    public class Plugin : BaseUnityPlugin {
+    public class VoicePlugin : BaseUnityPlugin {
         public const string modGUID = "me.loaforc.voicerecognitionapi";
         public const string modName = "VoiceRecognitionAPI";
         public const string modVersion = "1.2.0";
 
         private static readonly Harmony harmony = new Harmony(modGUID);
-        internal static Plugin instance;
+        internal static VoicePlugin instance;
         internal static ManualLogSource logger;
 
         internal static ConfigEntry<bool> LOG_SPEECH;

@@ -6,10 +6,11 @@ using System.Speech.Recognition;
 namespace VoiceRecognitionAPI {
     public static class Voice {
         public const float DEFAULT_MIN_CONFIDENCE = .2f;
+        public static bool RECOGNITION_SETUP { get; internal set; }
+
 
         internal static event EventHandler<VoiceRecognitionEventArgs> VoiceRecognitionFinishedEvent = (__, args) => {
-            if (VoicePlugin.LOG_SPEECH.Value)
-                VoicePlugin.logger.LogInfo("Recognized: \"" + args.Message + "\" with a confidence of " + args.Confidence);
+            VoicePlugin.logger.LogDebug("Recognized: \"" + args.Message + "\" with a confidence of " + args.Confidence);
         };
 
         internal static List<string> phrases = new List<string>();
@@ -38,14 +39,14 @@ namespace VoiceRecognitionAPI {
         }
 
         public static EventHandler<VoiceRecognitionEventArgs> ListenForPhrases(string[] phrases, float minConfidence, Action<string> callback) {
-            if(VoicePlugin.RECOGNITION_SETUP) {
+            if(RECOGNITION_SETUP) {
                 throw new VoiceRecognitionEngineAlreadyStarted("The voice recognition engine was already started. If you are a developer, Make sure to setup your voice recognition patterns in Awake().");
             }
 
             Voice.phrases.AddRange(phrases);
             EventHandler<VoiceRecognitionEventArgs> recCallback = (__, args) => {
                 if (phrases.Contains(args.Message) && args.Confidence >= minConfidence) {
-                    callback.Invoke(args.Message);
+                    callback.Invoke(args.Message!);
                 }
             };
             VoiceRecognitionFinishedEvent += recCallback;

@@ -8,10 +8,9 @@ using HarmonyLib;
 namespace VoiceRecognitionAPI.Patches {
     [HarmonyPatch(typeof(GameNetworkManager))]
     internal class GameNetworkManagerPatch {
-        [HarmonyPatch("Start")]
-        [HarmonyPostfix]
-        static void setupRecognitionEngine() {
-            Plugin.instance.SetupEngine();
+        [HarmonyPostfix, HarmonyPatch("Start")]
+        internal static void SetupRecognitionEngine() {
+            new SpeechHandler();
         }
     }
 }

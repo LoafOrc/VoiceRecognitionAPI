@@ -16,7 +16,7 @@ namespace VoiceRecognitionAPI {
     public class VoicePlugin : BaseUnityPlugin {
         public const string modGUID = "me.loaforc.voicerecognitionapi";
         public const string modName = "VoiceRecognitionAPI";
-        public const string modVersion = "1.2.0";
+        public const string modVersion = "2.0.0";
 
         private static readonly Harmony harmony = new Harmony(modGUID);
         internal static VoicePlugin instance;
@@ -31,12 +31,12 @@ namespace VoiceRecognitionAPI {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
                 logger.LogDebug("Importing " + args.Name);
 
-                String resourceName = modName + ".Resources." + new AssemblyName(args.Name).Name + ".dll";
+                String resourceName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), new AssemblyName(args.Name).Name + ".dll");
                 logger.LogDebug("Located at: " + resourceName);
 
-                if (Assembly.GetExecutingAssembly().GetManifestResourceInfo(resourceName) == null) return null;
+                if (!File.Exists(resourceName)) return null;
 
-                Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+                FileStream stream = File.OpenRead(resourceName);
                 logger.LogDebug("Found file! Length: " + stream.Length);
 
                 byte[] assemblyData = new byte[stream.Length];

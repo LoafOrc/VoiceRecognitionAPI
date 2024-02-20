@@ -9,7 +9,7 @@ namespace VoiceRecognitionAPI {
         // Now what I'm about to do might seem crazy. But!, it must be done otherwise an error is thrown!
         // Basically it tries to load SpeechRecognitionEngine before the main mod has the chance to load
         // it correctly, which means without this hack the mod would not start.
-        private static object recognition;
+        internal object recognition;
 
         public static SpeechHandler instance { get; private set; }
 
